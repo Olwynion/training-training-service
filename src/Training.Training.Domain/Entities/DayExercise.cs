@@ -2,19 +2,18 @@ namespace Training.Training.Domain.Entities;
 
 public class DayExercise
 {
-    public string Id { get; private set; } = null!;
-    public string ExerciseId { get; private set; } = null!;
+    public long Id { get; private set; }
+    public long ExerciseId { get; private set; }
     public string ExerciseName { get; private set; } = null!;
     public int Sets { get; private set; }
     public int SortOrder { get; private set; }
 
     private DayExercise() { }
 
-    public static DayExercise Create(string exerciseId, string exerciseName, int sets, int sortOrder)
+    public static DayExercise Create(long exerciseId, string exerciseName, int sets, int sortOrder)
     {
         return new DayExercise
         {
-            Id = Guid.NewGuid().ToString(),
             ExerciseId = exerciseId,
             ExerciseName = exerciseName,
             Sets = sets,
@@ -22,7 +21,7 @@ public class DayExercise
         };
     }
 
-    public static DayExercise Hydrate(string id, string exerciseId, string exerciseName, int sets, int sortOrder)
+    public static DayExercise Hydrate(long id, long exerciseId, string exerciseName, int sets, int sortOrder)
     {
         return new DayExercise
         {

@@ -7,7 +7,7 @@ namespace Training.Training.Infrastructure.Repositories;
 
 public class ExerciseRepository(IDbConnectionFactory connectionFactory) : IExerciseRepository
 {
-    public async Task<Exercise?> GetByIdAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<Exercise?> GetByIdAsync(long id, CancellationToken cancellationToken = default)
     {
         using var conn = connectionFactory.CreateConnection();
         var row = await conn.QuerySingleOrDefaultAsync<dynamic>(
@@ -37,11 +37,10 @@ public class ExerciseRepository(IDbConnectionFactory connectionFactory) : IExerc
         await conn.ExecuteAsync(
             new CommandDefinition(
                 commandText: @"
-                    INSERT INTO exercises (id, name, default_one_rm, muscle_group, user_id, is_built_in)
-                    VALUES (@Id, @Name, @DefaultOneRm, @MuscleGroup, @UserId, @IsBuiltIn)",
+                    INSERT INTO exercises (name, default_one_rm, muscle_group, user_id, is_built_in)
+                    VALUES (@Name, @DefaultOneRm, @MuscleGroup, @UserId, @IsBuiltIn)",
                 parameters: new
                 {
-                    exercise.Id,
                     exercise.Name,
                     exercise.DefaultOneRm,
                     MuscleGroup = (int)exercise.MuscleGroup,
@@ -78,7 +77,7 @@ public class ExerciseRepository(IDbConnectionFactory connectionFactory) : IExerc
     private static Exercise MapToExercise(dynamic row)
     {
         return Exercise.Hydrate(
-            (string)row.id,
+            (long)row.id,
             (string)row.name,
             (double)row.default_one_rm,
             (Domain.Enums.MuscleGroup)(int)row.muscle_group,

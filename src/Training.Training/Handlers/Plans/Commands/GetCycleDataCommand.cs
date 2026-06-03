@@ -3,4 +3,4 @@ using Training.Training.Domain.Services;
 
 namespace Training.Training.Handlers.Plans.Commands;
 
-public record GetCycleDataCommand(string PlanId, string UserId) : IRequest<List<CycleDataResult>>;
+public record GetCycleDataCommand(long PlanId, string UserId) : IRequest<List<CycleDataResult>>;

@@ -20,11 +20,11 @@ public class GetWorkoutPlanQueryHandlerTests
     public async Task Handle_ShouldReturnPlan()
     {
         var plan = WorkoutPlan.Create("user-1", "My Plan");
-        _repo.Setup(r => r.GetByIdAsync("plan-1", It.IsAny<CancellationToken>()))
+        _repo.Setup(r => r.GetByIdAsync(1, It.IsAny<CancellationToken>()))
             .ReturnsAsync(plan);
 
         var result = await _handler.Handle(
-            new GetWorkoutPlanQuery("plan-1", "user-1"),
+            new GetWorkoutPlanQuery(1, "user-1"),
             CancellationToken.None);
 
         Assert.NotNull(result);
@@ -34,12 +34,12 @@ public class GetWorkoutPlanQueryHandlerTests
     [Fact]
     public async Task Handle_WhenNotFound_ShouldThrow()
     {
-        _repo.Setup(r => r.GetByIdAsync("missing", It.IsAny<CancellationToken>()))
+        _repo.Setup(r => r.GetByIdAsync(999, It.IsAny<CancellationToken>()))
             .ReturnsAsync((WorkoutPlan?)null);
 
         await Assert.ThrowsAsync<KeyNotFoundException>(() =>
             _handler.Handle(
-                new GetWorkoutPlanQuery("missing", "user-1"),
+                new GetWorkoutPlanQuery(999, "user-1"),
                 CancellationToken.None));
     }
 }

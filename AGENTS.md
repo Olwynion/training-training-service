@@ -11,6 +11,11 @@
 Onion-архитектура (Domain → Infrastructure → Services → API). 
 gRPC запросы принимаются на порту 5003, проходят через MediatR CQRS Handlers, бизнес-логика выполняется в репозиториях (Dapper SQL) и сервисах (CycleCalculator).
 
+## ID
+
+Все ID сущностей — `long` (BIGSERIAL в БД). Автоинкремент. `string` только для `UserId`
+(ссылка на auth-service, у которого тоже `long`, но через gRPC приходит как `string`).
+
 ## Команды
 
 ```bash

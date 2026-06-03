@@ -171,7 +171,7 @@ public class TrainingGrpcService(IMediator mediator) : TrainingService.TrainingS
         return plan;
     }
 
-    private static CycleData MapCycleData(List<Domain.Services.CycleDataResult> data, string planId)
+    private static CycleData MapCycleData(List<Domain.Services.CycleDataResult> data, long planId)
     {
         var result = new CycleData();
         foreach (var day in data)

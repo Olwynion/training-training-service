@@ -4,7 +4,7 @@ namespace Training.Training.Domain.Entities;
 
 public class WorkoutPlan
 {
-    public string Id { get; private set; } = null!;
+    public long Id { get; private set; }
     public string UserId { get; private set; } = null!;
     public string Name { get; private set; } = null!;
     public int CycleNumber { get; private set; }
@@ -18,7 +18,6 @@ public class WorkoutPlan
     {
         return new WorkoutPlan
         {
-            Id = Guid.NewGuid().ToString(),
             UserId = userId,
             Name = name,
             CycleNumber = 1,
@@ -28,7 +27,7 @@ public class WorkoutPlan
         };
     }
 
-    public static WorkoutPlan Hydrate(string id, string userId, string name, int cycleNumber, int progressCounter, DateTime createdAt, List<PlanDay>? days = null)
+    public static WorkoutPlan Hydrate(long id, string userId, string name, int cycleNumber, int progressCounter, DateTime createdAt, List<PlanDay>? days = null)
     {
         return new WorkoutPlan
         {

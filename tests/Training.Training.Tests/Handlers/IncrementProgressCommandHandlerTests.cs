@@ -34,12 +34,12 @@ public class IncrementProgressCommandHandlerTests
     [Fact]
     public async Task Handle_WhenNotFound_ShouldThrow()
     {
-        _repo.Setup(r => r.GetByIdAsync("missing", It.IsAny<CancellationToken>()))
+        _repo.Setup(r => r.GetByIdAsync(999, It.IsAny<CancellationToken>()))
             .ReturnsAsync((WorkoutPlan?)null);
 
         await Assert.ThrowsAsync<KeyNotFoundException>(() =>
             _handler.Handle(
-                new IncrementProgressCommand("missing", "user-1"),
+                new IncrementProgressCommand(999, "user-1"),
                 CancellationToken.None));
     }
 }

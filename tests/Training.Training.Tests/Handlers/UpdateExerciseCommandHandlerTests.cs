@@ -21,11 +21,11 @@ public class UpdateExerciseCommandHandlerTests
     public async Task Handle_ShouldUpdateAndReturnExercise()
     {
         var exercise = Exercise.Create("Bench Press", 100, MuscleGroup.Chest, "user-1");
-        _repo.Setup(r => r.GetByIdAsync("ex-1", It.IsAny<CancellationToken>()))
+        _repo.Setup(r => r.GetByIdAsync(1, It.IsAny<CancellationToken>()))
             .ReturnsAsync(exercise);
 
         var result = await _handler.Handle(
-            new UpdateExerciseCommand("ex-1", "Incline Bench", 90, MuscleGroup.Chest, "user-1"),
+            new UpdateExerciseCommand(1, "Incline Bench", 90, MuscleGroup.Chest, "user-1"),
             CancellationToken.None);
 
         Assert.Equal("Incline Bench", result.Name);
@@ -36,12 +36,12 @@ public class UpdateExerciseCommandHandlerTests
     [Fact]
     public async Task Handle_WhenNotFound_ShouldThrow()
     {
-        _repo.Setup(r => r.GetByIdAsync("missing", It.IsAny<CancellationToken>()))
+        _repo.Setup(r => r.GetByIdAsync(999, It.IsAny<CancellationToken>()))
             .ReturnsAsync((Exercise?)null);
 
         await Assert.ThrowsAsync<KeyNotFoundException>(() =>
             _handler.Handle(
-                new UpdateExerciseCommand("missing", "X", 100, MuscleGroup.Chest, "user-1"),
+                new UpdateExerciseCommand(999, "X", 100, MuscleGroup.Chest, "user-1"),
                 CancellationToken.None));
     }
 }

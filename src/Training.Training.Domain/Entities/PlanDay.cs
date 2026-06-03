@@ -4,7 +4,7 @@ namespace Training.Training.Domain.Entities;
 
 public class PlanDay
 {
-    public string Id { get; private set; } = null!;
+    public long Id { get; private set; }
     public string DayName { get; private set; } = null!;
     public MuscleGroup FocusGroup { get; private set; }
     public int SortOrder { get; private set; }
@@ -16,7 +16,6 @@ public class PlanDay
     {
         return new PlanDay
         {
-            Id = Guid.NewGuid().ToString(),
             DayName = dayName,
             FocusGroup = focusGroup,
             SortOrder = sortOrder,
@@ -24,7 +23,7 @@ public class PlanDay
         };
     }
 
-    public static PlanDay Hydrate(string id, string dayName, MuscleGroup focusGroup, int sortOrder, List<DayExercise>? exercises = null)
+    public static PlanDay Hydrate(long id, string dayName, MuscleGroup focusGroup, int sortOrder, List<DayExercise>? exercises = null)
     {
         return new PlanDay
         {

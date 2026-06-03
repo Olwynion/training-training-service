@@ -7,7 +7,7 @@ namespace Training.Training.Infrastructure.Repositories;
 
 public class WorkoutPlanRepository(IDbConnectionFactory connectionFactory) : IWorkoutPlanRepository
 {
-    public async Task<WorkoutPlan?> GetByIdAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<WorkoutPlan?> GetByIdAsync(long id, CancellationToken cancellationToken = default)
     {
         using var conn = connectionFactory.CreateConnection();
         var row = await conn.QuerySingleOrDefaultAsync<dynamic>(
@@ -37,11 +37,10 @@ public class WorkoutPlanRepository(IDbConnectionFactory connectionFactory) : IWo
         await conn.ExecuteAsync(
             new CommandDefinition(
                 commandText: @"
-                    INSERT INTO workout_plans (id, user_id, name, cycle_number, progress_counter, created_at)
-                    VALUES (@Id, @UserId, @Name, @CycleNumber, @ProgressCounter, @CreatedAt)",
+                    INSERT INTO workout_plans (user_id, name, cycle_number, progress_counter, created_at)
+                    VALUES (@UserId, @Name, @CycleNumber, @ProgressCounter, @CreatedAt)",
                 parameters: new
                 {
-                    plan.Id,
                     plan.UserId,
                     plan.Name,
                     plan.CycleNumber,
@@ -74,7 +73,7 @@ public class WorkoutPlanRepository(IDbConnectionFactory connectionFactory) : IWo
             new { plan.Id });
     }
 
-    public async Task UpdateCycleAsync(string id, int cycleNumber, CancellationToken cancellationToken = default)
+    public async Task UpdateCycleAsync(long id, int cycleNumber, CancellationToken cancellationToken = default)
     {
         using var conn = connectionFactory.CreateConnection();
         await conn.ExecuteAsync(
@@ -84,7 +83,7 @@ public class WorkoutPlanRepository(IDbConnectionFactory connectionFactory) : IWo
                 cancellationToken: cancellationToken));
     }
 
-    public async Task IncrementProgressAsync(string id, CancellationToken cancellationToken = default)
+    public async Task IncrementProgressAsync(long id, CancellationToken cancellationToken = default)
     {
         using var conn = connectionFactory.CreateConnection();
         await conn.ExecuteAsync(
@@ -97,7 +96,7 @@ public class WorkoutPlanRepository(IDbConnectionFactory connectionFactory) : IWo
     private static WorkoutPlan MapToWorkoutPlan(dynamic row)
     {
         return WorkoutPlan.Hydrate(
-            (string)row.id,
+            (long)row.id,
             (string)row.user_id,
             (string)row.name,
             (int)row.cycle_number,

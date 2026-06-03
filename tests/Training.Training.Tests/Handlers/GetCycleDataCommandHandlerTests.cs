@@ -48,12 +48,12 @@ public class GetCycleDataCommandHandlerTests
     [Fact]
     public async Task Handle_WhenPlanNotFound_ShouldThrow()
     {
-        _planRepo.Setup(r => r.GetByIdAsync("missing", It.IsAny<CancellationToken>()))
+        _planRepo.Setup(r => r.GetByIdAsync(999, It.IsAny<CancellationToken>()))
             .ReturnsAsync((WorkoutPlan?)null);
 
         await Assert.ThrowsAsync<KeyNotFoundException>(() =>
             _handler.Handle(
-                new GetCycleDataCommand("missing", "user-1"),
+                new GetCycleDataCommand(999, "user-1"),
                 CancellationToken.None));
     }
 }

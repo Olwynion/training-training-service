@@ -10,8 +10,7 @@ public class ExerciseTests
     {
         var exercise = Exercise.Create("Bench Press", 100.0, MuscleGroup.Chest, "user-1");
 
-        Assert.NotNull(exercise.Id);
-        Assert.NotEmpty(exercise.Id);
+        Assert.Equal(0, exercise.Id);
         Assert.Equal("Bench Press", exercise.Name);
         Assert.Equal(100.0, exercise.DefaultOneRm);
         Assert.Equal(MuscleGroup.Chest, exercise.MuscleGroup);
@@ -22,9 +21,9 @@ public class ExerciseTests
     [Fact]
     public void Hydrate_ShouldSetAllProperties()
     {
-        var exercise = Exercise.Hydrate("ex-1", "Squat", 150.0, MuscleGroup.Legs, "user-1", true);
+        var exercise = Exercise.Hydrate(1, "Squat", 150.0, MuscleGroup.Legs, "user-1", true);
 
-        Assert.Equal("ex-1", exercise.Id);
+        Assert.Equal(1, exercise.Id);
         Assert.Equal("Squat", exercise.Name);
         Assert.Equal(150.0, exercise.DefaultOneRm);
         Assert.Equal(MuscleGroup.Legs, exercise.MuscleGroup);
@@ -44,11 +43,12 @@ public class ExerciseTests
     }
 
     [Fact]
-    public void Create_ShouldGenerateUniqueIds()
+    public void Create_ShouldSetDefaultId()
     {
         var ex1 = Exercise.Create("A", 100, MuscleGroup.Chest, "u1");
         var ex2 = Exercise.Create("B", 100, MuscleGroup.Back, "u1");
 
-        Assert.NotEqual(ex1.Id, ex2.Id);
+        Assert.Equal(0, ex1.Id);
+        Assert.Equal(0, ex2.Id);
     }
 }

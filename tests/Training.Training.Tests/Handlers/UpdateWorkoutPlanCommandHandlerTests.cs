@@ -36,8 +36,8 @@ public class UpdateWorkoutPlanCommandHandlerTests
     [Fact]
     public async Task Handle_WhenNotFound_ShouldThrow()
     {
-        var plan = WorkoutPlan.Hydrate("missing", "user-1", "Plan", 1, 0, DateTime.UtcNow);
-        _repo.Setup(r => r.GetByIdAsync("missing", It.IsAny<CancellationToken>()))
+        var plan = WorkoutPlan.Hydrate(999, "user-1", "Plan", 1, 0, DateTime.UtcNow);
+        _repo.Setup(r => r.GetByIdAsync(999, It.IsAny<CancellationToken>()))
             .ReturnsAsync((WorkoutPlan?)null);
 
         await Assert.ThrowsAsync<KeyNotFoundException>(() =>

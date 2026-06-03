@@ -2,4 +2,4 @@ using MediatR;
 
 namespace Training.Training.Handlers.Plans.Commands;
 
-public record DeleteWorkoutPlanCommand(string Id, string UserId) : IRequest;
+public record DeleteWorkoutPlanCommand(long Id, string UserId) : IRequest;

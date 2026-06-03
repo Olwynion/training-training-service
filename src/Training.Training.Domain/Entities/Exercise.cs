@@ -4,7 +4,7 @@ namespace Training.Training.Domain.Entities;
 
 public class Exercise
 {
-    public string Id { get; private set; } = null!;
+    public long Id { get; private set; }
     public string Name { get; private set; } = null!;
     public double DefaultOneRm { get; private set; }
     public MuscleGroup MuscleGroup { get; private set; }
@@ -17,7 +17,6 @@ public class Exercise
     {
         return new Exercise
         {
-            Id = Guid.NewGuid().ToString(),
             Name = name,
             DefaultOneRm = defaultOneRm,
             MuscleGroup = muscleGroup,
@@ -26,7 +25,7 @@ public class Exercise
         };
     }
 
-    public static Exercise Hydrate(string id, string name, double defaultOneRm, MuscleGroup muscleGroup, string userId, bool isBuiltIn)
+    public static Exercise Hydrate(long id, string name, double defaultOneRm, MuscleGroup muscleGroup, string userId, bool isBuiltIn)
     {
         return new Exercise
         {
