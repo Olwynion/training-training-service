@@ -93,6 +93,7 @@ public class CycleCalculator : ICycleCalculator
             + Random.Shared.Next(-5, 6) / 100.0,
         (false, false, _) => new[] { 0.65, 0.75, 0.85, 0.80 }[cycle - 1]
             + Random.Shared.Next(-5, 6) / 100.0,
+        _ => throw new ArgumentOutOfRangeException(nameof(cycle)),
     };
 
     private static int CalculateReps(bool isLight, double percentage)
