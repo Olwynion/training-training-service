@@ -34,11 +34,12 @@ public class ExerciseRepository(IDbConnectionFactory connectionFactory) : IExerc
     public async Task AddAsync(Exercise exercise, CancellationToken cancellationToken = default)
     {
         using var conn = connectionFactory.CreateConnection();
-        await conn.ExecuteAsync(
+        var id = await conn.ExecuteScalarAsync<long>(
             new CommandDefinition(
                 commandText: @"
                     INSERT INTO exercises (name, default_one_rm, muscle_group, user_id, is_built_in)
-                    VALUES (@Name, @DefaultOneRm, @MuscleGroup, @UserId, @IsBuiltIn)",
+                    VALUES (@Name, @DefaultOneRm, @MuscleGroup, @UserId, @IsBuiltIn)
+                    RETURNING id",
                 parameters: new
                 {
                     exercise.Name,
@@ -48,6 +49,8 @@ public class ExerciseRepository(IDbConnectionFactory connectionFactory) : IExerc
                     exercise.IsBuiltIn
                 },
                 cancellationToken: cancellationToken));
+
+        exercise.SetId(id);
     }
 
     public void Update(Exercise exercise)

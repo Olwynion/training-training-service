@@ -34,6 +34,8 @@ public class Exercise
         };
     }
 
+    public void SetId(long id) => Id = id;
+
     public void Update(string name, double defaultOneRm, MuscleGroup muscleGroup)
     {
         Name = name;
