@@ -24,7 +24,7 @@ jobs:
         run: dotnet restore
 
       - name: Analyze
-        run: dotnet build --no-restore --configuration Release --warningsaserrors
+        run: dotnet build --no-restore --configuration Release -p:TreatWarningsAsErrors=true
 
       - name: Test
         run: >
