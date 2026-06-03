@@ -49,6 +49,8 @@ public class WorkoutPlan
         ProgressCounter++;
     }
 
+    public void SetId(long id) => Id = id;
+
     public void Update(string name)
     {
         Name = name;

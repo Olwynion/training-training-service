@@ -34,11 +34,12 @@ public class WorkoutPlanRepository(IDbConnectionFactory connectionFactory) : IWo
     public async Task AddAsync(WorkoutPlan plan, CancellationToken cancellationToken = default)
     {
         using var conn = connectionFactory.CreateConnection();
-        await conn.ExecuteAsync(
+        var id = await conn.ExecuteScalarAsync<long>(
             new CommandDefinition(
                 commandText: @"
                     INSERT INTO workout_plans (user_id, name, cycle_number, progress_counter, created_at)
-                    VALUES (@UserId, @Name, @CycleNumber, @ProgressCounter, @CreatedAt)",
+                    VALUES (@UserId, @Name, @CycleNumber, @ProgressCounter, @CreatedAt)
+                    RETURNING id",
                 parameters: new
                 {
                     plan.UserId,
@@ -48,6 +49,8 @@ public class WorkoutPlanRepository(IDbConnectionFactory connectionFactory) : IWo
                     plan.CreatedAt
                 },
                 cancellationToken: cancellationToken));
+
+        plan.SetId(id);
     }
 
     public void Update(WorkoutPlan plan)
