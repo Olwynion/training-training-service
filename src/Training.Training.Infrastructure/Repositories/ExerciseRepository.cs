@@ -31,6 +31,17 @@ public class ExerciseRepository(IDbConnectionFactory connectionFactory) : IExerc
         return rows.Select(MapToExercise).ToList();
     }
 
+    public async Task<IReadOnlyList<Exercise>> GetBuiltInAsync(CancellationToken cancellationToken = default)
+    {
+        using var conn = connectionFactory.CreateConnection();
+        var rows = await conn.QueryAsync<dynamic>(
+            new CommandDefinition(
+                commandText: "SELECT * FROM exercises WHERE is_built_in = true ORDER BY muscle_group, id",
+                cancellationToken: cancellationToken));
+
+        return rows.Select(MapToExercise).ToList();
+    }
+
     public async Task AddAsync(Exercise exercise, CancellationToken cancellationToken = default)
     {
         using var conn = connectionFactory.CreateConnection();

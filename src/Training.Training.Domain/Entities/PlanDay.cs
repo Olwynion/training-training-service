@@ -36,4 +36,6 @@ public class PlanDay
     {
         Exercises.Add(exercise);
     }
+
+    public void SetId(long id) => Id = id;
 }

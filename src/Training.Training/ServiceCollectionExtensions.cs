@@ -15,6 +15,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
         services.AddScoped<IExerciseRepository, ExerciseRepository>();
         services.AddScoped<IWorkoutPlanRepository, WorkoutPlanRepository>();
+        services.AddScoped<IUserPreferencesRepository, UserPreferencesRepository>();
+        services.AddScoped<IOneRmRepository, OneRmRepository>();
         services.AddScoped<ICycleCalculator, CycleCalculator>();
 
         return services;
