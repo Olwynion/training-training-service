@@ -165,6 +165,14 @@ public class TrainingGrpcService(IMediator mediator) : TrainingService.TrainingS
         return new SaveOneRmsResponse();
     }
 
+    public override async Task<GetUserOneRmsResponse> GetUserOneRms(GetUserOneRmsRequest request, ServerCallContext context)
+    {
+        var oneRms = await mediator.Send(new GetUserOneRmsQuery(request.UserId), context.CancellationToken);
+        var response = new GetUserOneRmsResponse();
+        response.Entries.AddRange(oneRms.Select(o => new OneRmEntry { ExerciseId = o.ExerciseId, OneRm = o.Value }));
+        return response;
+    }
+
     public override async Task<GetBuiltInExercisesResponse> GetBuiltInExercises(GetBuiltInExercisesRequest request, ServerCallContext context)
     {
         var exercises = await mediator.Send(new GetBuiltInExercisesQuery(), context.CancellationToken);
