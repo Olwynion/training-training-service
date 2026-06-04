@@ -16,5 +16,8 @@ Thumbs.db
 goose.exe
 grpcurl.exe
 
-# Local config
-appsettings.Local.json
+# Coverage
+coveragereport/
+
+# Test results
+tests/**/TestResults/
