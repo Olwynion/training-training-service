@@ -14,7 +14,9 @@ public class GetCycleDataCommandHandler(
     {
         var plan = await planRepository.GetByIdAsync(request.PlanId, cancellationToken)
             ?? throw new KeyNotFoundException("Plan not found");
-        var exercises = await exerciseRepository.GetByUserIdAsync(request.UserId, cancellationToken);
+        var userExercises = await exerciseRepository.GetByUserIdAsync(request.UserId, cancellationToken);
+        var builtInExercises = await exerciseRepository.GetBuiltInAsync(cancellationToken);
+        var exercises = userExercises.Concat(builtInExercises).ToList();
 
         return calculator.Calculate(plan, exercises, plan.CycleNumber, plan.ProgressCounter);
     }

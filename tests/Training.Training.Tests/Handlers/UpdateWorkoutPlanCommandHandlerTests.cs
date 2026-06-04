@@ -13,6 +13,8 @@ public class UpdateWorkoutPlanCommandHandlerTests
     public UpdateWorkoutPlanCommandHandlerTests()
     {
         _repo = new Mock<IWorkoutPlanRepository>();
+        _repo.Setup(r => r.UpdateAsync(It.IsAny<WorkoutPlan>(), It.IsAny<CancellationToken>()))
+            .Returns(Task.CompletedTask);
         _handler = new UpdateWorkoutPlanCommandHandler(_repo.Object);
     }
 
@@ -30,7 +32,7 @@ public class UpdateWorkoutPlanCommandHandlerTests
             CancellationToken.None);
 
         Assert.Equal("New Name", result.Name);
-        _repo.Verify(r => r.Update(updated), Times.Once);
+        _repo.Verify(r => r.UpdateAsync(updated, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]

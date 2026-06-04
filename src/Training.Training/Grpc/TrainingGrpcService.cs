@@ -246,7 +246,10 @@ public class TrainingGrpcService(IMediator mediator) : TrainingService.TrainingS
 
     private static CycleData MapCycleData(List<Domain.Services.CycleDataResult> data, long planId)
     {
-        var result = new CycleData();
+        var result = new CycleData
+        {
+            PlanId = planId
+        };
         foreach (var day in data)
         {
             var dayData = new DayData
