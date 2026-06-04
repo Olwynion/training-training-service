@@ -1,0 +1,11 @@
+app = "training-training"
+
+[build]
+
+[http_service]
+  internal_port = 5003
+  force_https = true
+
+[env]
+  CONNECTIONSTRINGS__DEFAULTCONNECTION = "${DATABASE_URL}"
+  ASPNETCORE_ENVIRONMENT = "Production"
