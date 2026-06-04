@@ -1,25 +1,25 @@
 Summary
-  Generated on: 04.06.2026 - 14:11:24
-  Coverage date: 04.06.2026 - 14:11:15
-  Parser: Cobertura
-  Assemblies: 4
-  Classes: 105
-  Files: 55
-  Line coverage: 5.1%
-  Covered lines: 245
-  Uncovered lines: 4552
-  Coverable lines: 4797
-  Total lines: 13726
-  Branch coverage: 1.4% (34 of 2300)
-  Covered branches: 34
-  Total branches: 2300
-  Method coverage: 7.9% (97 of 1216)
-  Full method coverage: 7.5% (92 of 1216)
-  Covered methods: 97
-  Fully covered methods: 92
-  Total methods: 1216
+  Generated on: 04.06.2026 - 14:17:39
+  Coverage date: 04.06.2026 - 14:11:15 - 04.06.2026 - 14:17:34
+  Parser: MultiReport (3x Cobertura)
+  Assemblies: 2
+  Classes: 50
+  Files: 47
+  Line coverage: 55.5%
+  Covered lines: 300
+  Uncovered lines: 240
+  Coverable lines: 540
+  Total lines: 1160
+  Branch coverage: 73.9% (51 of 69)
+  Covered branches: 51
+  Total branches: 69
+  Method coverage: 79.5% (128 of 161)
+  Full method coverage: 78.2% (126 of 161)
+  Covered methods: 128
+  Fully covered methods: 126
+  Total methods: 161
 
-Training.Training                                                                           25.2%
+Training.Training                                                                           40.9%
   Program                                                                                      0%
   Training.Training.Grpc.TrainingGrpcService                                                   0%
   Training.Training.Handlers.Exercises.Commands.CreateExerciseCommand                        100%
@@ -28,13 +28,13 @@ Training.Training                                                               
   Training.Training.Handlers.Exercises.Commands.DeleteExerciseCommandHandler                 100%
   Training.Training.Handlers.Exercises.Commands.UpdateExerciseCommand                        100%
   Training.Training.Handlers.Exercises.Commands.UpdateExerciseCommandHandler                 100%
-  Training.Training.Handlers.Exercises.Queries.GetBuiltIn.GetBuiltInExercisesQueryHandler      0%
+  Training.Training.Handlers.Exercises.Queries.GetBuiltIn.GetBuiltInExercisesQueryHandler    100%
   Training.Training.Handlers.Exercises.Queries.GetExercisesQuery                             100%
   Training.Training.Handlers.Exercises.Queries.GetExercisesQueryHandler                      100%
-  Training.Training.Handlers.OneRms.Commands.SaveOneRmsCommand                                 0%
-  Training.Training.Handlers.OneRms.Commands.SaveOneRmsCommandHandler                          0%
-  Training.Training.Handlers.OneRms.Queries.GetUserOneRmsQuery                                 0%
-  Training.Training.Handlers.OneRms.Queries.GetUserOneRmsQueryHandler                          0%
+  Training.Training.Handlers.OneRms.Commands.SaveOneRmsCommand                               100%
+  Training.Training.Handlers.OneRms.Commands.SaveOneRmsCommandHandler                        100%
+  Training.Training.Handlers.OneRms.Queries.GetUserOneRmsQuery                               100%
+  Training.Training.Handlers.OneRms.Queries.GetUserOneRmsQueryHandler                        100%
   Training.Training.Handlers.Plans.Commands.CreateWorkoutPlanCommand                         100%
   Training.Training.Handlers.Plans.Commands.CreateWorkoutPlanCommandHandler                  100%
   Training.Training.Handlers.Plans.Commands.DeleteWorkoutPlanCommand                         100%
@@ -45,89 +45,30 @@ Training.Training                                                               
   Training.Training.Handlers.Plans.Commands.IncrementProgressCommandHandler                  100%
   Training.Training.Handlers.Plans.Commands.SetCycleCommand                                  100%
   Training.Training.Handlers.Plans.Commands.SetCycleCommandHandler                           100%
-  Training.Training.Handlers.Plans.Commands.UpdatePlanDays.DayInfo                             0%
-  Training.Training.Handlers.Plans.Commands.UpdatePlanDays.ExerciseInfo                        0%
-  Training.Training.Handlers.Plans.Commands.UpdatePlanDays.UpdatePlanDaysCommand               0%
-  Training.Training.Handlers.Plans.Commands.UpdatePlanDays.UpdatePlanDaysCommandHandler        0%
+  Training.Training.Handlers.Plans.Commands.UpdatePlanDays.DayInfo                           100%
+  Training.Training.Handlers.Plans.Commands.UpdatePlanDays.ExerciseInfo                      100%
+  Training.Training.Handlers.Plans.Commands.UpdatePlanDays.UpdatePlanDaysCommand             100%
+  Training.Training.Handlers.Plans.Commands.UpdatePlanDays.UpdatePlanDaysCommandHandler      100%
   Training.Training.Handlers.Plans.Commands.UpdateWorkoutPlanCommand                         100%
   Training.Training.Handlers.Plans.Commands.UpdateWorkoutPlanCommandHandler                  100%
   Training.Training.Handlers.Plans.Queries.GetUserWorkoutPlansQuery                          100%
   Training.Training.Handlers.Plans.Queries.GetUserWorkoutPlansQueryHandler                   100%
   Training.Training.Handlers.Plans.Queries.GetWorkoutPlanQuery                               100%
   Training.Training.Handlers.Plans.Queries.GetWorkoutPlanQueryHandler                        100%
-  Training.Training.Handlers.Preferences.Commands.SavePreferencesCommand                       0%
-  Training.Training.Handlers.Preferences.Commands.SavePreferencesCommandHandler                0%
-  Training.Training.Handlers.Preferences.Queries.GetUserPreferencesQuery                       0%
-  Training.Training.Handlers.Preferences.Queries.GetUserPreferencesQueryHandler                0%
+  Training.Training.Handlers.Preferences.Commands.SavePreferencesCommand                     100%
+  Training.Training.Handlers.Preferences.Commands.SavePreferencesCommandHandler              100%
+  Training.Training.Handlers.Preferences.Queries.GetUserPreferencesQuery                     100%
+  Training.Training.Handlers.Preferences.Queries.GetUserPreferencesQueryHandler              100%
   Training.Training.Interceptors.GrpcExceptionInterceptor                                    100%
   Training.Training.ServiceCollectionExtensions                                                0%
   Training.Training.Startup                                                                    0%
 
-Training.Training.Domain                                                                    67.1%
-  Training.Training.Domain.Entities.DayExercise                                             94.7%
+Training.Training.Domain                                                                    92.7%
+  Training.Training.Domain.Entities.DayExercise                                              100%
   Training.Training.Domain.Entities.Exercise                                                  96%
-  Training.Training.Domain.Entities.OneRm                                                      0%
-  Training.Training.Domain.Entities.PlanDay                                                 95.2%
-  Training.Training.Domain.Entities.UserPreferences                                            0%
+  Training.Training.Domain.Entities.OneRm                                                    100%
+  Training.Training.Domain.Entities.PlanDay                                                  100%
+  Training.Training.Domain.Entities.UserPreferences                                          100%
   Training.Training.Domain.Entities.WorkoutPlan                                               75%
   Training.Training.Domain.Services.CycleDataResult                                          100%
   Training.Training.Domain.Services.ExerciseSetResult                                        100%
-
-Training.Training.Infrastructure                                                              13%
-  Training.Training.Infrastructure.Factories.DbConnectionFactory                               0%
-  Training.Training.Infrastructure.Repositories.ExerciseRepository                             0%
-  Training.Training.Infrastructure.Repositories.OneRmRepository                                0%
-  Training.Training.Infrastructure.Repositories.UserPreferencesRepository                      0%
-  Training.Training.Infrastructure.Repositories.WorkoutPlanRepository                          0%
-  Training.Training.Infrastructure.Services.CycleCalculator                                 77.5%
-
-Training.Training.Services                                                                     0%
-  Training.Training.Proto.CreateExerciseRequest                                                0%
-  Training.Training.Proto.CreateExerciseResponse                                               0%
-  Training.Training.Proto.CreateWorkoutPlanRequest                                             0%
-  Training.Training.Proto.CreateWorkoutPlanResponse                                            0%
-  Training.Training.Proto.CycleData                                                            0%
-  Training.Training.Proto.DayData                                                              0%
-  Training.Training.Proto.DayExercise                                                          0%
-  Training.Training.Proto.DayExerciseUpdate                                                    0%
-  Training.Training.Proto.DeleteExerciseRequest                                                0%
-  Training.Training.Proto.DeleteExerciseResponse                                               0%
-  Training.Training.Proto.DeleteWorkoutPlanRequest                                             0%
-  Training.Training.Proto.DeleteWorkoutPlanResponse                                            0%
-  Training.Training.Proto.Exercise                                                             0%
-  Training.Training.Proto.ExerciseSet                                                          0%
-  Training.Training.Proto.GetBuiltInExercisesRequest                                           0%
-  Training.Training.Proto.GetBuiltInExercisesResponse                                          0%
-  Training.Training.Proto.GetCycleDataRequest                                                  0%
-  Training.Training.Proto.GetCycleDataResponse                                                 0%
-  Training.Training.Proto.GetExercisesRequest                                                  0%
-  Training.Training.Proto.GetExercisesResponse                                                 0%
-  Training.Training.Proto.GetUserOneRmsRequest                                                 0%
-  Training.Training.Proto.GetUserOneRmsResponse                                                0%
-  Training.Training.Proto.GetUserPreferencesRequest                                            0%
-  Training.Training.Proto.GetUserPreferencesResponse                                           0%
-  Training.Training.Proto.GetUserWorkoutPlansRequest                                           0%
-  Training.Training.Proto.GetUserWorkoutPlansResponse                                          0%
-  Training.Training.Proto.GetWorkoutPlanRequest                                                0%
-  Training.Training.Proto.GetWorkoutPlanResponse                                               0%
-  Training.Training.Proto.IncrementProgressRequest                                             0%
-  Training.Training.Proto.IncrementProgressResponse                                            0%
-  Training.Training.Proto.OneRmEntry                                                           0%
-  Training.Training.Proto.PlanDay                                                              0%
-  Training.Training.Proto.PlanDayUpdate                                                        0%
-  Training.Training.Proto.SaveOneRmsRequest                                                    0%
-  Training.Training.Proto.SaveOneRmsResponse                                                   0%
-  Training.Training.Proto.SavePreferencesRequest                                               0%
-  Training.Training.Proto.SavePreferencesResponse                                              0%
-  Training.Training.Proto.SetCycleRequest                                                      0%
-  Training.Training.Proto.SetCycleResponse                                                     0%
-  Training.Training.Proto.TrainingReflection                                                   0%
-  Training.Training.Proto.TrainingService                                                      0%
-  Training.Training.Proto.UpdateExerciseRequest                                                0%
-  Training.Training.Proto.UpdateExerciseResponse                                               0%
-  Training.Training.Proto.UpdatePlanDaysRequest                                                0%
-  Training.Training.Proto.UpdatePlanDaysResponse                                               0%
-  Training.Training.Proto.UpdateWorkoutPlanRequest                                             0%
-  Training.Training.Proto.UpdateWorkoutPlanResponse                                            0%
-  Training.Training.Proto.UserPreferences                                                      0%
-  Training.Training.Proto.WorkoutPlan                                                          0%
