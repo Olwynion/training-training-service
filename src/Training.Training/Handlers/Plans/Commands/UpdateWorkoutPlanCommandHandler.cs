@@ -12,7 +12,7 @@ public class UpdateWorkoutPlanCommandHandler(IWorkoutPlanRepository repository)
     {
         var existing = await repository.GetByIdAsync(request.Plan.Id, cancellationToken)
             ?? throw new KeyNotFoundException("Plan not found");
-        repository.Update(request.Plan);
+        await repository.UpdateAsync(request.Plan, cancellationToken);
         return request.Plan;
     }
 }

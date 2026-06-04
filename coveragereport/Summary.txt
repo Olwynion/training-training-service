@@ -1,0 +1,74 @@
+Summary
+  Generated on: 04.06.2026 - 14:17:39
+  Coverage date: 04.06.2026 - 14:11:15 - 04.06.2026 - 14:17:34
+  Parser: MultiReport (3x Cobertura)
+  Assemblies: 2
+  Classes: 50
+  Files: 47
+  Line coverage: 55.5%
+  Covered lines: 300
+  Uncovered lines: 240
+  Coverable lines: 540
+  Total lines: 1160
+  Branch coverage: 73.9% (51 of 69)
+  Covered branches: 51
+  Total branches: 69
+  Method coverage: 79.5% (128 of 161)
+  Full method coverage: 78.2% (126 of 161)
+  Covered methods: 128
+  Fully covered methods: 126
+  Total methods: 161
+
+Training.Training                                                                           40.9%
+  Program                                                                                      0%
+  Training.Training.Grpc.TrainingGrpcService                                                   0%
+  Training.Training.Handlers.Exercises.Commands.CreateExerciseCommand                        100%
+  Training.Training.Handlers.Exercises.Commands.CreateExerciseCommandHandler                 100%
+  Training.Training.Handlers.Exercises.Commands.DeleteExerciseCommand                        100%
+  Training.Training.Handlers.Exercises.Commands.DeleteExerciseCommandHandler                 100%
+  Training.Training.Handlers.Exercises.Commands.UpdateExerciseCommand                        100%
+  Training.Training.Handlers.Exercises.Commands.UpdateExerciseCommandHandler                 100%
+  Training.Training.Handlers.Exercises.Queries.GetBuiltIn.GetBuiltInExercisesQueryHandler    100%
+  Training.Training.Handlers.Exercises.Queries.GetExercisesQuery                             100%
+  Training.Training.Handlers.Exercises.Queries.GetExercisesQueryHandler                      100%
+  Training.Training.Handlers.OneRms.Commands.SaveOneRmsCommand                               100%
+  Training.Training.Handlers.OneRms.Commands.SaveOneRmsCommandHandler                        100%
+  Training.Training.Handlers.OneRms.Queries.GetUserOneRmsQuery                               100%
+  Training.Training.Handlers.OneRms.Queries.GetUserOneRmsQueryHandler                        100%
+  Training.Training.Handlers.Plans.Commands.CreateWorkoutPlanCommand                         100%
+  Training.Training.Handlers.Plans.Commands.CreateWorkoutPlanCommandHandler                  100%
+  Training.Training.Handlers.Plans.Commands.DeleteWorkoutPlanCommand                         100%
+  Training.Training.Handlers.Plans.Commands.DeleteWorkoutPlanCommandHandler                  100%
+  Training.Training.Handlers.Plans.Commands.GetCycleDataCommand                              100%
+  Training.Training.Handlers.Plans.Commands.GetCycleDataCommandHandler                      83.3%
+  Training.Training.Handlers.Plans.Commands.IncrementProgressCommand                         100%
+  Training.Training.Handlers.Plans.Commands.IncrementProgressCommandHandler                  100%
+  Training.Training.Handlers.Plans.Commands.SetCycleCommand                                  100%
+  Training.Training.Handlers.Plans.Commands.SetCycleCommandHandler                           100%
+  Training.Training.Handlers.Plans.Commands.UpdatePlanDays.DayInfo                           100%
+  Training.Training.Handlers.Plans.Commands.UpdatePlanDays.ExerciseInfo                      100%
+  Training.Training.Handlers.Plans.Commands.UpdatePlanDays.UpdatePlanDaysCommand             100%
+  Training.Training.Handlers.Plans.Commands.UpdatePlanDays.UpdatePlanDaysCommandHandler      100%
+  Training.Training.Handlers.Plans.Commands.UpdateWorkoutPlanCommand                         100%
+  Training.Training.Handlers.Plans.Commands.UpdateWorkoutPlanCommandHandler                  100%
+  Training.Training.Handlers.Plans.Queries.GetUserWorkoutPlansQuery                          100%
+  Training.Training.Handlers.Plans.Queries.GetUserWorkoutPlansQueryHandler                   100%
+  Training.Training.Handlers.Plans.Queries.GetWorkoutPlanQuery                               100%
+  Training.Training.Handlers.Plans.Queries.GetWorkoutPlanQueryHandler                        100%
+  Training.Training.Handlers.Preferences.Commands.SavePreferencesCommand                     100%
+  Training.Training.Handlers.Preferences.Commands.SavePreferencesCommandHandler              100%
+  Training.Training.Handlers.Preferences.Queries.GetUserPreferencesQuery                     100%
+  Training.Training.Handlers.Preferences.Queries.GetUserPreferencesQueryHandler              100%
+  Training.Training.Interceptors.GrpcExceptionInterceptor                                    100%
+  Training.Training.ServiceCollectionExtensions                                                0%
+  Training.Training.Startup                                                                    0%
+
+Training.Training.Domain                                                                    92.7%
+  Training.Training.Domain.Entities.DayExercise                                              100%
+  Training.Training.Domain.Entities.Exercise                                                  96%
+  Training.Training.Domain.Entities.OneRm                                                    100%
+  Training.Training.Domain.Entities.PlanDay                                                  100%
+  Training.Training.Domain.Entities.UserPreferences                                          100%
+  Training.Training.Domain.Entities.WorkoutPlan                                               75%
+  Training.Training.Domain.Services.CycleDataResult                                          100%
+  Training.Training.Domain.Services.ExerciseSetResult                                        100%

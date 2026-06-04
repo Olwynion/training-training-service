@@ -10,6 +10,7 @@ public class GetCycleDataCommandHandlerTests
 {
     private readonly Mock<IWorkoutPlanRepository> _planRepo;
     private readonly Mock<IExerciseRepository> _exerciseRepo;
+    private readonly Mock<IOneRmRepository> _oneRmRepo;
     private readonly Mock<ICycleCalculator> _calculator;
     private readonly GetCycleDataCommandHandler _handler;
 
@@ -17,8 +18,9 @@ public class GetCycleDataCommandHandlerTests
     {
         _planRepo = new Mock<IWorkoutPlanRepository>();
         _exerciseRepo = new Mock<IExerciseRepository>();
+        _oneRmRepo = new Mock<IOneRmRepository>();
         _calculator = new Mock<ICycleCalculator>();
-        _handler = new GetCycleDataCommandHandler(_planRepo.Object, _exerciseRepo.Object, _calculator.Object);
+        _handler = new GetCycleDataCommandHandler(_planRepo.Object, _exerciseRepo.Object, _oneRmRepo.Object, _calculator.Object);
     }
 
     [Fact]
@@ -28,6 +30,10 @@ public class GetCycleDataCommandHandlerTests
         _planRepo.Setup(r => r.GetByIdAsync(plan.Id, It.IsAny<CancellationToken>()))
             .ReturnsAsync(plan);
         _exerciseRepo.Setup(r => r.GetByUserIdAsync("user-1", It.IsAny<CancellationToken>()))
+            .ReturnsAsync([]);
+        _exerciseRepo.Setup(r => r.GetBuiltInAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync([]);
+        _oneRmRepo.Setup(r => r.GetByUserIdAsync("user-1", It.IsAny<CancellationToken>()))
             .ReturnsAsync([]);
 
         var expected = new List<CycleDataResult>

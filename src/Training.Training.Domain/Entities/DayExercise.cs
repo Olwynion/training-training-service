@@ -29,4 +29,6 @@ public class DayExercise
             Sets = sets, SortOrder = sortOrder
         };
     }
+
+    public void SetId(long id) => Id = id;
 }

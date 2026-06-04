@@ -3,8 +3,14 @@ using MediatR;
 using Training.Training.Proto;
 using Training.Training.Handlers.Exercises.Commands;
 using Training.Training.Handlers.Exercises.Queries;
+using Training.Training.Handlers.Exercises.Queries.GetBuiltIn;
+using Training.Training.Handlers.OneRms.Commands;
+using Training.Training.Handlers.OneRms.Queries;
 using Training.Training.Handlers.Plans.Commands;
+using Training.Training.Handlers.Plans.Commands.UpdatePlanDays;
 using Training.Training.Handlers.Plans.Queries;
+using Training.Training.Handlers.Preferences.Commands;
+using Training.Training.Handlers.Preferences.Queries;
 
 namespace Training.Training.Grpc;
 
@@ -118,6 +124,81 @@ public class TrainingGrpcService(IMediator mediator) : TrainingService.TrainingS
         return new IncrementProgressResponse();
     }
 
+    public override async Task<SavePreferencesResponse> SavePreferences(SavePreferencesRequest request, ServerCallContext context)
+    {
+        await mediator.Send(
+            new SavePreferencesCommand(
+                request.UserId,
+                request.DaysPerWeek,
+                request.ProgramType,
+                (Domain.Enums.MuscleGroup)(int)request.FocusGroup),
+            context.CancellationToken);
+
+        return new SavePreferencesResponse();
+    }
+
+    public override async Task<GetUserPreferencesResponse> GetUserPreferences(GetUserPreferencesRequest request, ServerCallContext context)
+    {
+        var preferences = await mediator.Send(
+            new GetUserPreferencesQuery(request.UserId),
+            context.CancellationToken);
+
+        if (preferences == null)
+            return new GetUserPreferencesResponse();
+
+        return new GetUserPreferencesResponse
+        {
+            Preferences = new UserPreferences
+            {
+                UserId = preferences.UserId,
+                DaysPerWeek = preferences.DaysPerWeek,
+                ProgramType = preferences.ProgramType,
+                FocusGroup = (MuscleGroup)(int)preferences.FocusGroup
+            }
+        };
+    }
+
+    public override async Task<SaveOneRmsResponse> SaveOneRms(SaveOneRmsRequest request, ServerCallContext context)
+    {
+        var entries = request.Entries.Select(e => (e.ExerciseId, e.OneRm)).ToList();
+        await mediator.Send(new SaveOneRmsCommand(request.UserId, entries), context.CancellationToken);
+        return new SaveOneRmsResponse();
+    }
+
+    public override async Task<GetUserOneRmsResponse> GetUserOneRms(GetUserOneRmsRequest request, ServerCallContext context)
+    {
+        var oneRms = await mediator.Send(new GetUserOneRmsQuery(request.UserId), context.CancellationToken);
+        var response = new GetUserOneRmsResponse();
+        response.Entries.AddRange(oneRms.Select(o => new OneRmEntry { ExerciseId = o.ExerciseId, OneRm = o.Value }));
+        return response;
+    }
+
+    public override async Task<GetBuiltInExercisesResponse> GetBuiltInExercises(GetBuiltInExercisesRequest request, ServerCallContext context)
+    {
+        var exercises = await mediator.Send(new GetBuiltInExercisesQuery(), context.CancellationToken);
+
+        var response = new GetBuiltInExercisesResponse();
+        response.Exercises.AddRange(exercises.Select(MapExercise));
+        return response;
+    }
+
+    public override async Task<UpdatePlanDaysResponse> UpdatePlanDays(UpdatePlanDaysRequest request, ServerCallContext context)
+    {
+        var days = request.Days.Select(d => new DayInfo(
+            d.Id,
+            d.DayName,
+            (Domain.Enums.MuscleGroup)(int)d.FocusGroup,
+            d.SortOrder,
+            d.Exercises.Select(e => new ExerciseInfo(e.Id, e.ExerciseId, e.Sets, e.SortOrder, e.ExerciseName)).ToList()
+        )).ToList();
+
+        var plan = await mediator.Send(
+            new UpdatePlanDaysCommand(request.PlanId, request.UserId, days),
+            context.CancellationToken);
+
+        return new UpdatePlanDaysResponse { Plan = MapWorkoutPlan(plan) };
+    }
+
     private static Exercise MapExercise(Domain.Entities.Exercise ex)
     {
         return new Exercise
@@ -142,12 +223,24 @@ public class TrainingGrpcService(IMediator mediator) : TrainingService.TrainingS
             ProgressCounter = plan.ProgressCounter
         };
 
-        result.Days.AddRange(plan.Days.Select(d => new PlanDay
+        result.Days.AddRange(plan.Days.Select(d =>
         {
-            Id = d.Id,
-            DayName = d.DayName,
-            FocusGroup = (MuscleGroup)(int)d.FocusGroup,
-            SortOrder = d.SortOrder
+            var protoDay = new PlanDay
+            {
+                Id = d.Id,
+                DayName = d.DayName,
+                FocusGroup = (MuscleGroup)(int)d.FocusGroup,
+                SortOrder = d.SortOrder
+            };
+            protoDay.Exercises.AddRange(d.Exercises.Select(e => new DayExercise
+            {
+                Id = e.Id,
+                ExerciseId = e.ExerciseId,
+                ExerciseName = e.ExerciseName,
+                Sets = e.Sets,
+                SortOrder = e.SortOrder
+            }));
+            return protoDay;
         }));
 
         return result;
@@ -173,7 +266,10 @@ public class TrainingGrpcService(IMediator mediator) : TrainingService.TrainingS
 
     private static CycleData MapCycleData(List<Domain.Services.CycleDataResult> data, long planId)
     {
-        var result = new CycleData();
+        var result = new CycleData
+        {
+            PlanId = planId
+        };
         foreach (var day in data)
         {
             var dayData = new DayData
