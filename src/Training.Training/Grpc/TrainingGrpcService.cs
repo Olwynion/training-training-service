@@ -215,12 +215,24 @@ public class TrainingGrpcService(IMediator mediator) : TrainingService.TrainingS
             ProgressCounter = plan.ProgressCounter
         };
 
-        result.Days.AddRange(plan.Days.Select(d => new PlanDay
+        result.Days.AddRange(plan.Days.Select(d =>
         {
-            Id = d.Id,
-            DayName = d.DayName,
-            FocusGroup = (MuscleGroup)(int)d.FocusGroup,
-            SortOrder = d.SortOrder
+            var protoDay = new PlanDay
+            {
+                Id = d.Id,
+                DayName = d.DayName,
+                FocusGroup = (MuscleGroup)(int)d.FocusGroup,
+                SortOrder = d.SortOrder
+            };
+            protoDay.Exercises.AddRange(d.Exercises.Select(e => new DayExercise
+            {
+                Id = e.Id,
+                ExerciseId = e.ExerciseId,
+                ExerciseName = e.ExerciseName,
+                Sets = e.Sets,
+                SortOrder = e.SortOrder
+            }));
+            return protoDay;
         }));
 
         return result;
