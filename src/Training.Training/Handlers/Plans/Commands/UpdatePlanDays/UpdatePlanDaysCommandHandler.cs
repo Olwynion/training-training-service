@@ -30,12 +30,19 @@ public class UpdatePlanDaysCommandHandler(
 
             foreach (var exInfo in dayInfo.Exercises)
             {
-                Console.WriteLine($"[UpdatePlanDays]   Ex: id={exInfo.ExerciseId}, sets={exInfo.Sets}");
+                Console.WriteLine($"[UpdatePlanDays]   Ex: id={exInfo.ExerciseId}, sets={exInfo.Sets}, name='{exInfo.ExerciseName}'");
 
-                var exercise = await exerciseRepository.GetByIdAsync(exInfo.ExerciseId, cancellationToken);
-                Console.WriteLine($"[UpdatePlanDays]   Found exercise: {(exercise?.Name ?? "null")}");
+                if (string.IsNullOrWhiteSpace(exInfo.ExerciseName) && exInfo.ExerciseId > 0)
+                {
+                    var exercise = await exerciseRepository.GetByIdAsync(exInfo.ExerciseId, cancellationToken);
+                    Console.WriteLine($"[UpdatePlanDays]   Found exercise: {(exercise?.Name ?? "null")}");
+                }
 
-                var exerciseName = exercise?.Name ?? "Unknown";
+                var exerciseName = !string.IsNullOrWhiteSpace(exInfo.ExerciseName)
+                    ? exInfo.ExerciseName
+                    : exInfo.ExerciseId > 0
+                        ? (await exerciseRepository.GetByIdAsync(exInfo.ExerciseId, cancellationToken))?.Name ?? "Unknown"
+                        : "Unknown";
 
                 var dayEx = DayExercise.Create(exInfo.ExerciseId, exerciseName, exInfo.Sets, exInfo.SortOrder);
                 dayEx.SetId(exInfo.Id);

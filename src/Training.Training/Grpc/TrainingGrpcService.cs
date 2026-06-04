@@ -181,7 +181,7 @@ public class TrainingGrpcService(IMediator mediator) : TrainingService.TrainingS
             d.DayName,
             (Domain.Enums.MuscleGroup)(int)d.FocusGroup,
             d.SortOrder,
-            d.Exercises.Select(e => new ExerciseInfo(e.Id, e.ExerciseId, e.Sets, e.SortOrder)).ToList()
+            d.Exercises.Select(e => new ExerciseInfo(e.Id, e.ExerciseId, e.Sets, e.SortOrder, e.ExerciseName)).ToList()
         )).ToList();
 
         var plan = await mediator.Send(
